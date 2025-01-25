@@ -11,56 +11,56 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-} 
+}
 
 model Transaction {
-  id          Int      @id @default(autoincrement())
-  date        DateTime
-  account     Account @relation(fields: [accountId], references: [id])
-  accountId   Int
-  amount      Decimal
-  merchant    String
-  transactionCategory    TransactionCategory @relation(fields: [transactionCategoryId], references: [id])
-  transactionCategoryId  Int
-  description String?
-  payPeriod   PayPeriod @relation(fields: [payPeriodId], references: [id])
-  payPeriodId Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                    Int                 @id @default(autoincrement())
+  date                  DateTime
+  account               Account             @relation(fields: [accountId], references: [id])
+  accountId             Int
+  amount                Decimal
+  merchant              String
+  transactionCategory   TransactionCategory @relation(fields: [transactionCategoryId], references: [id])
+  transactionCategoryId Int
+  description           String?
+  payPeriod             PayPeriod           @relation(fields: [payPeriodId], references: [id])
+  payPeriodId           Int
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
 }
 
 model PayPeriod {
-  id          Int       @id @default(autoincrement())
-  startDate   DateTime
-  endDate     DateTime
-  budget      Decimal
+  id           Int           @id @default(autoincrement())
+  startDate    DateTime
+  endDate      DateTime
+  budget       Decimal
   transactions Transaction[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 }
 
 model Account {
-  id            Int    @id @default(autoincrement())
+  id            Int           @id @default(autoincrement())
   name          String
-  accountType   AccountType @relation(fields: [accountTypeId], references: [id])
+  accountType   AccountType   @relation(fields: [accountTypeId], references: [id])
   accountTypeId Int
-  transactions Transaction[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  transactions  Transaction[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 }
 
 model AccountType {
-  id          Int      @id @default(autoincrement())
-  type        String 
-  accounts    Account[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt   
+  id        Int       @id @default(autoincrement())
+  type      String
+  accounts  Account[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model TransactionCategory {
-  id          Int      @id @default(autoincrement())
-  name        String   
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
   transactions Transaction[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt   
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 }
