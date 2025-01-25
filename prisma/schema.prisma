@@ -41,7 +41,8 @@ model PayPeriod {
 
 model Account {
   id            Int           @id @default(autoincrement())
-  name          String
+  name          String        @unique
+  isDefault     Boolean       @default(false)
   accountType   AccountType   @relation(fields: [accountTypeId], references: [id])
   accountTypeId Int
   transactions  Transaction[]
