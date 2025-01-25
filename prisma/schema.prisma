@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+} 
+
+model Transaction {
+  id          Int      @id @default(autoincrement())
+  date        DateTime
+  account     Account @relation(fields: [accountId], references: [id])
+  accountId   Int
+  amount      Decimal
+  merchant    String
+  transactionCategory    TransactionCategory @relation(fields: [transactionCategoryId], references: [id])
+  transactionCategoryId  Int
+  description String?
+  payPeriod   PayPeriod @relation(fields: [payPeriodId], references: [id])
+  payPeriodId Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PayPeriod {
+  id          Int       @id @default(autoincrement())
+  startDate   DateTime
+  endDate     DateTime
+  budget      Decimal
+  transactions Transaction[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Account {
+  id            Int    @id @default(autoincrement())
+  name          String
+  accountType   AccountType @relation(fields: [accountTypeId], references: [id])
+  accountTypeId Int
+  transactions Transaction[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model AccountType {
+  id          Int      @id @default(autoincrement())
+  type        String 
+  accounts    Account[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt   
+}
+
+model TransactionCategory {
+  id          Int      @id @default(autoincrement())
+  name        String   
+  transactions Transaction[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt   
+}
