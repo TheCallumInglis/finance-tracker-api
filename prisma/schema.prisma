@@ -23,20 +23,17 @@ model Transaction {
   transactionCategory   TransactionCategory @relation(fields: [transactionCategoryId], references: [id])
   transactionCategoryId Int
   description           String?
-  payPeriod             PayPeriod           @relation(fields: [payPeriodId], references: [id])
-  payPeriodId           Int
   createdAt             DateTime            @default(now())
   updatedAt             DateTime            @updatedAt
 }
 
 model PayPeriod {
-  id           Int           @id @default(autoincrement())
-  startDate    DateTime
-  endDate      DateTime
-  budget       Decimal
-  transactions Transaction[]
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  id        Int      @id @default(autoincrement())
+  startDate DateTime
+  endDate   DateTime
+  budget    Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Account {
