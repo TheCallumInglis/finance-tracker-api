@@ -1,5 +1,8 @@
 import express from 'express';
-import { getTransactionCategories, createTransactionCategory } from '../controllers/transactionCategoryController';
+import {
+  getTransactionCategories,
+  createTransactionCategory,
+} from '../controllers/transactionCategoryController';
 
 const router = express.Router();
 

@@ -1,8 +1,8 @@
 import express from 'express';
-import transactionRoutes from './transactionRoutes';
-import transactionCategoryRoutes from './transactionCategoryRoutes';
 import accountRoutes from './accountRoutes';
 import accountTypeRoutes from './accountTypeRoutes';
+import transactionCategoryRoutes from './transactionCategoryRoutes';
+import transactionRoutes from './transactionRoutes';
 
 const router = express.Router();
 
