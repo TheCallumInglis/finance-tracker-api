@@ -5,7 +5,7 @@ export const getAllAccounts = async () => {
 };
 
 export const addAccount = async (body: any) => {
-  const { name, isDefault, accountTypeId} = body;
+  const { name, isDefault, accountTypeId } = body;
 
   if (isDefault) {
     // Remove existing default account

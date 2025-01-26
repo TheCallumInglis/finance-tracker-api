@@ -1,6 +1,6 @@
+import { Transaction } from '@prisma/client';
 import { Request, Response } from 'express';
 import { getAllTransactions, addTransaction } from '../services/transactionService';
-import { Transaction } from '@prisma/client';
 
 export const getTransactions = async (req: Request, res: Response) => {
   const transactions = await getAllTransactions();
