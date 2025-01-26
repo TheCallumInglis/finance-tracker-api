@@ -8,3 +8,20 @@ export const getAllTransactions = async () => {
 export const addTransaction = async (data: Transaction) => {
   return await prisma.transaction.create({ data });
 };
+
+export const getTransactionsByDateRange = async (startDate: Date, endDate: Date) => {
+  return await prisma.transaction.findMany({
+    where: {
+      date: {
+        gte: startDate,
+        lte: endDate,
+      },
+    },
+    orderBy: {
+      date: 'desc',
+    },
+    // include: {
+    //   transactionCategory: true,
+    // }
+  });
+};
