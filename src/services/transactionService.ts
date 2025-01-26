@@ -25,3 +25,11 @@ export const getTransactionsByDateRange = async (startDate: Date, endDate: Date)
     // }
   });
 };
+
+export const deleteTransactionById = async (id: number) => {
+  return await prisma.transaction.delete({
+    where: { 
+      id: id 
+    },
+  });
+}
